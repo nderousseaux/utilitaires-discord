@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  server:
+    container_name: utdi_server
+    image: utdi_server_base
+    build:
+      context: ./server
+      target: base
+    volumes:
+      - ./server:/usr/src/app
+    command: ["python", "src/main.py"]

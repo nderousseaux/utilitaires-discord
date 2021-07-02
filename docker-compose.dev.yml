@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  server:
+    image: utdi_server_dev
+    build:
+      target: dev
+    ports:
+      - 5678:5678
+    command: ["sh", "-c", "python -m debugpy --wait-for-client --listen 0.0.0.0:5678 src/main.py"]
+    restart: "always"

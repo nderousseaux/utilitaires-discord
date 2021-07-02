@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run dev",
+      "type": "docker-compose",
+      "dockerCompose": {
+        "up": {
+          "detached": true,
+          "build": true,
+        },
+        "files": [
+          "${workspaceFolder}/docker-compose.yml",
+          "${workspaceFolder}/docker-compose.dev.yml"
+        ]
+      }
+    },
+    {
+      "label": "Stop dev",
+      "type": "docker-compose",
+      "dockerCompose": {
+        "down": {
+          "removeImages": "all"
+        },
+        "files": [
+          "${workspaceFolder}/docker-compose.yml",
+          "${workspaceFolder}/docker-compose.dev.yml"
+        ]
+      }
+    },
+    {
+      "label": "Lint dev",
+      "type": "shell",
+      "command": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --rm server pylint --msg-template \"{path}:{line}:{column}:{category}:{symbol} - {msg}\" src/",
+      "presentation": {
+          "reveal": "never",
+          "panel": "shared"
+      },
+      "problemMatcher": {
+          "owner": "python",
+          "fileLocation": [
+              "relative",
+              "${workspaceFolder}/server"
+          ],
+          "pattern": {
+              "regexp": "^(.+):(\\d+):(\\d+):(\\w+):(.*)$",
+              "file": 1,
+              "line": 2,
+              "column": 3,
+              "severity": 4,
+              "message": 5
+          }
+      }
+    }
+  ]
+}

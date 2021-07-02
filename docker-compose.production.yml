@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  server:
+    image: utdi_server_prod
+    build:
+      target: production
+    command: ["python", "src/main.py"]
+    restart: always
+
+

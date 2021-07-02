@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Start debug",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/server",
+                    "remoteRoot": "/usr/src/app"
+                }
+            ],
+        },
+    ],
+}
