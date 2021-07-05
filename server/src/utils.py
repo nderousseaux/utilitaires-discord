@@ -36,9 +36,8 @@ def get_env_authen():
         # Verifing if UTDI_TOKEN is not an empty string
         if not environ['UTDI_TOKEN']:
             raise EnvironmentError('The UTDI_TOKEN environment variable is set but its value is an empty string.')
-        
-        else:
-            credentials['token'] = environ['UTDI_TOKEN']
+
+        credentials['token'] = environ['UTDI_TOKEN']
 
     # Checking if UTDI_LOGIN is set
     elif 'UTDI_LOGIN' in environ.keys():
@@ -56,7 +55,7 @@ def get_env_authen():
         # Verifing if UTDI_PASSWORD is not an empty string
         if not environ['UTDI_PASSWORD']:
             raise EnvironmentError('The UTDI_PASSWORD environment variable is set but its value is an empty string.')
-        
+
         credentials['password'] = environ['UTDI_PASSWORD']
 
     else:
