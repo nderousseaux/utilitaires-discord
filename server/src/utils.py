@@ -3,18 +3,22 @@
 from os import environ
 
 
-def check_env_var():
+def get_env_var():
     """Checking the consistency of environment variables"""
 
-    check_env_authen()
+    credentials = get_env_authen() # {token} or {login, password}
 
-    check_env_group()
+    group = get_env_group() # {id_group}
 
-    check_env_timeout()
+    timeout = get_env_timeout() # {fixed_duration} or {min_duration, max_duration}
+
+    return credentials, group, timeout
 
 
-def check_env_authen():
+def get_env_authen():
     """Checking the consistency of environment variables for authentification"""
+
+    credentials = {}
 
     # Checking if UTDI_TOKEN is not defined at the same time as UTDI_LOGIN or UTDI_PASSWORD
     if (
@@ -32,6 +36,9 @@ def check_env_authen():
         # Verifing if UTDI_TOKEN is not an empty string
         if not environ['UTDI_TOKEN']:
             raise EnvironmentError('The UTDI_TOKEN environment variable is set but its value is an empty string.')
+        
+        else:
+            credentials['token'] = environ['UTDI_TOKEN']
 
     # Checking if UTDI_LOGIN is set
     elif 'UTDI_LOGIN' in environ.keys():
@@ -40,6 +47,8 @@ def check_env_authen():
         if not environ['UTDI_LOGIN']:
             raise EnvironmentError('The UTDI_LOGIN environment variable is set but its value is an empty string.')
 
+        credentials['login'] = environ['UTDI_LOGIN']
+
         # Checking if UTDI_PASSWORD is set
         if not 'UTDI_PASSWORD' in environ.keys():
             raise EnvironmentError('The UTDI_PASSWORD is not set.')
@@ -47,6 +56,8 @@ def check_env_authen():
         # Verifing if UTDI_PASSWORD is not an empty string
         if not environ['UTDI_PASSWORD']:
             raise EnvironmentError('The UTDI_PASSWORD environment variable is set but its value is an empty string.')
+        
+        credentials['password'] = environ['UTDI_PASSWORD']
 
     else:
         raise EnvironmentError(
@@ -54,9 +65,12 @@ def check_env_authen():
             'Please declare a way of authentication: LOGIN/PASSWORD or TOKEN.'
         )
 
+    return credentials
 
-def check_env_group():
+def get_env_group():
     """Checking the consistency of environment variables for group"""
+
+    group = {}
 
     # Checking if UTDI_ID_GROUP is defined
     if 'UTDI_ID_GROUP' in environ.keys():
@@ -65,12 +79,17 @@ def check_env_group():
         if not environ['UTDI_ID_GROUP']:
             raise EnvironmentError('The UTDI_ID_GROUP environment variable is set but its value is an empty string.')
 
+        group['id_group'] = environ['UTDI_ID_GROUP']
+
     else:
         raise EnvironmentError('The UTDI_ID_GROUP environment variable is not set.')
 
+    return group
 
-def check_env_timeout():
+def get_env_timeout():
     """Checking the consistency of environment variables for update time"""
+
+    timeout = {}
 
     # Checking if UTDI_UPDATE_TIMEOUT is not defined at the same time as UTDI_UPDATE_TIMEOUT_MIN or UTDI_UPDATE_TIMEOUT_MAX
     if (
@@ -95,6 +114,8 @@ def check_env_timeout():
         except Exception as exception:
             raise EnvironmentError('The UTDI_UPDATE_TIMEOUT environment variable is set but its value cannot be cast to integer') from exception
 
+        timeout['fixed_duration'] = int(environ['UTDI_UPDATE_TIMEOUT'])
+
     # Checking if UTDI_UPDATE_TIMEOUT_MIN is set
     elif 'UTDI_UPDATE_TIMEOUT_MIN' in environ.keys():
 
@@ -107,6 +128,8 @@ def check_env_timeout():
             int(environ['UTDI_UPDATE_TIMEOUT'])
         except Exception as exception:
             raise EnvironmentError('The UTDI_UPDATE_TIMEOUT environment variable is set but its value cannot be cast to integer') from exception
+
+        timeout['min_duration'] = int(environ['UTDI_UPDATE_TIMEOUT_MIN'])
 
         # Checking if UTDI_UPDATE_TIMEOUT_MAX is set
         if not 'UTDI_UPDATE_TIMEOUT_MAX' in environ.keys():
@@ -122,8 +145,12 @@ def check_env_timeout():
         except Exception as exception:
             raise EnvironmentError('The UTDI_UPDATE_TIMEOUT_MAX environment variable is set but its value cannot be cast to integer') from exception
 
+        timeout['max_duration'] = int(environ['UTDI_UPDATE_TIMEOUT_MAX'])
+
     else:
         raise EnvironmentError(
             'No UTDI_UPDATE_TIMEOUT_MIN/MAX or UTDI_UPDATE_TIMEOUT environment variables is declared.'
             'Please declare a kind of update time : random (MIN/MAX) or fixed.'
         )
+
+    return timeout

@@ -1,10 +1,10 @@
 """Entry point of application"""
 
-from utils import check_env_var
+from utils import get_env_var
 
 if __name__ == "__main__":
 
-    #Checking the consistency of environment variables
-    check_env_var()
+    #Getting the environment variables 
+    credential, group, timeout = get_env_var()
 
-    print("Hello world")
+    print('Done')
