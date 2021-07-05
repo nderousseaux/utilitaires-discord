@@ -7,6 +7,8 @@ def check_env_var():
 
     check_env_authen()
 
+    check_env_group()
+
 
 def check_env_authen():
     """Checking the consistency of environment variables for authentification"""
@@ -52,4 +54,16 @@ def check_env_authen():
             'No UTDI_LOGIN/PASSWORD or UTDI_TOKEN environment variables is declared.'
             'Please declare a way of authentication: LOGIN/PASSWORD or TOKEN.'
         )
-        
+
+def check_env_group():
+    """Checking the consistency of environment variables for group"""
+
+    # Checking if UTDI_ID_GROUP is defined
+    if 'UTDI_ID_GROUP' in environ.keys():
+
+        # Verifing if UTDI_ID_GROUP is not an empty string
+        if not environ['UTDI_ID_GROUP']:
+            raise EnvironmentError('The UTDI_ID_GROUP environment variable is set but its value is an empty string.')
+
+    else:
+        raise EnvironmentError('The UTDI_ID_GROUP environment variable is not set.')
