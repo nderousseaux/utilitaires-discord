@@ -31,7 +31,7 @@
     {
       "label": "Lint dev",
       "type": "shell",
-      "command": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --rm server pylint --msg-template \"{path}:{line}:{column}:{category}:{symbol} - {msg}\" src/",
+      "command": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --rm server pylint --rcfile .pylintrc --msg-template \"{path}:{line}:{column}:{category}:{symbol} - {msg}\" src/",
       "presentation": {
           "reveal": "never",
           "panel": "shared"

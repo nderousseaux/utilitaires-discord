@@ -1,7 +1,10 @@
 # Utilitaires Discord - Serveur
 
-## Lancer l'application
+## Lancer l'application
 
+- Créer et remplir le fichier `.env`. (.env.dev ou .env.production)
+
+- Lancer l'application :
 ```shell
 #Développement
 $ docker-compose --build up

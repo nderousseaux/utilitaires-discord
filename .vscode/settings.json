@@ -1,12 +1,11 @@
 {
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
+    "python.linting.enabled": false,
     "python.testing.pytestArgs": [
         "server"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
     "python.testing.pytestEnabled": false,
-    "favorites.sortDirection": "DESC",
     "python.testing.promptToConfigure": false
 }

@@ -7,5 +7,5 @@ services:
       target: production
     command: ["python", "src/main.py"]
     restart: always
-
+    env_file: .env.production
 
