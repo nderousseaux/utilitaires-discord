@@ -2,7 +2,7 @@
 
 from time import sleep
 
-from utils import get_env_var
+from utils import get_env_var, get_time_to_wait
 
 
 if __name__ == "__main__":
@@ -12,6 +12,6 @@ if __name__ == "__main__":
 
     while True:
 
-        print("One loop")
+        print("One Loop")
 
-        sleep(timeout['fixed_duration'])
+        sleep(get_time_to_wait(timeout))

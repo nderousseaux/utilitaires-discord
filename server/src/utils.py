@@ -1,7 +1,7 @@
 """Some useful functions for this app"""
 
 from os import environ
-
+from random import randint
 
 def get_env_var():
     """Checking the consistency of environment variables"""
@@ -66,6 +66,7 @@ def get_env_authen():
 
     return credentials
 
+
 def get_env_group():
     """Checking the consistency of environment variables for group"""
 
@@ -84,6 +85,7 @@ def get_env_group():
         raise EnvironmentError('The UTDI_ID_GROUP environment variable is not set.')
 
     return group
+
 
 def get_env_timeout():
     """Checking the consistency of environment variables for update time"""
@@ -153,3 +155,19 @@ def get_env_timeout():
         )
 
     return timeout
+
+
+def get_time_to_wait(timeout):
+    """Determining the time that app should wait between each name update"""
+
+    time_to_wait = 0
+
+    # If timeout is random
+    if 'min_duration' in timeout.keys() and 'max_duration' in timeout.keys():
+        time_to_wait = randint(timeout['min_duration'], timeout['max_duration'])        
+
+    # If timeout is fixed
+    else:
+        time_to_wait = timeout['fixed_duration']
+
+    return time_to_wait
