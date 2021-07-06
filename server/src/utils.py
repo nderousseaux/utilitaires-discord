@@ -6,13 +6,17 @@ from random import randint
 def get_env_var():
     """Checking the consistency of environment variables"""
 
-    credentials = get_env_authen() # {token} or {login, password}
+    # {token} or {login, password}
+    credentials = get_env_authen()
 
-    group = get_env_group() # {id_group}
+    # {id_group}, {base_url}, {credentials}
+    discord = get_env_discord()
+    discord['credentials'] = credentials
 
-    timeout = get_env_timeout() # {fixed_duration} or {min_duration, max_duration}
+    # {fixed_duration} or {min_duration, max_duration}
+    timeout = get_env_timeout()
 
-    return credentials, group, timeout
+    return discord, timeout
 
 
 def get_env_authen():
@@ -67,10 +71,10 @@ def get_env_authen():
     return credentials
 
 
-def get_env_group():
+def get_env_discord():
     """Checking the consistency of environment variables for group"""
 
-    group = {}
+    discord = {}
 
     # Checking if UTDI_ID_GROUP is defined
     if 'UTDI_ID_GROUP' in environ.keys():
@@ -79,12 +83,25 @@ def get_env_group():
         if not environ['UTDI_ID_GROUP']:
             raise EnvironmentError('The UTDI_ID_GROUP environment variable is set but its value is an empty string.')
 
-        group['id_group'] = environ['UTDI_ID_GROUP']
+        discord['id_group'] = environ['UTDI_ID_GROUP']
 
     else:
         raise EnvironmentError('The UTDI_ID_GROUP environment variable is not set.')
 
-    return group
+
+    # Checking if UTDI_API_DISCORD_BASE_URL is defined
+    if 'UTDI_API_DISCORD_BASE_URL' in environ.keys():
+
+        # Verifing if UTDI_API_DISCORD_BASE_URL is not an empty string
+        if not environ['UTDI_API_DISCORD_BASE_URL']:
+            raise EnvironmentError('The UTDI_API_DISCORD_BASE_URL environment variable is set but its value is an empty string.')
+
+        discord['base_url'] = environ['UTDI_API_DISCORD_BASE_URL']
+
+    else:
+        raise EnvironmentError('The UTDI_API_DISCORD_BASE_URL environment variable is not set.')
+
+    return discord
 
 
 def get_env_timeout():
@@ -164,7 +181,7 @@ def get_time_to_wait(timeout):
 
     # If timeout is random
     if 'min_duration' in timeout.keys() and 'max_duration' in timeout.keys():
-        time_to_wait = randint(timeout['min_duration'], timeout['max_duration'])        
+        time_to_wait = randint(timeout['min_duration'], timeout['max_duration'])
 
     # If timeout is fixed
     else:
