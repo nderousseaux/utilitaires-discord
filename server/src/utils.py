@@ -124,9 +124,9 @@ def get_env_timeout():
 
         # Verifing if UTDI_UPDATE_TIMEOUT_MIN is an int
         try:
-            int(environ['UTDI_UPDATE_TIMEOUT'])
+            int(environ['UTDI_UPDATE_TIMEOUT_MIN'])
         except Exception as exception:
-            raise EnvironmentError('The UTDI_UPDATE_TIMEOUT environment variable is set but its value cannot be cast to integer') from exception
+            raise EnvironmentError('The UTDI_UPDATE_TIMEOUT_MIN environment variable is set but its value cannot be cast to integer') from exception
 
         timeout['min_duration'] = int(environ['UTDI_UPDATE_TIMEOUT_MIN'])
 
