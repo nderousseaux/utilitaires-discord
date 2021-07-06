@@ -3,6 +3,7 @@
 from os import environ
 from random import randint
 
+
 def get_env_var():
     """Checking the consistency of environment variables"""
 
