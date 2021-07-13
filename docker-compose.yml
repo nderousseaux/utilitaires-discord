@@ -19,6 +19,4 @@ services:
     build:
       context: ./random_phrases/
       target: base
-    ports:
-      - 3000:3000
     command: ["npm", "start"]
