@@ -2,11 +2,22 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Run dev",
+      "label": "Start normal",
       "type": "docker-compose",
       "dockerCompose": {
         "up": {
-          "detached": true,
+          "build": true,
+        },
+        "files": [
+          "${workspaceFolder}/docker-compose.yml"
+        ]
+      }
+    },
+    {
+      "label": "Start dev",
+      "type": "docker-compose",
+      "dockerCompose": {
+        "up": {
           "build": true,
         },
         "files": [
@@ -16,7 +27,7 @@
       }
     },
     {
-      "label": "Stop dev",
+      "label": "Stop",
       "type": "docker-compose",
       "dockerCompose": {
         "down": {
@@ -29,7 +40,7 @@
       }
     },
     {
-      "label": "Lint dev",
+      "label": "Lint utdi_server",
       "type": "shell",
       "command": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --rm server pylint --rcfile .pylintrc --msg-template \"{path}:{line}:{column}:{category}:{symbol} - {msg}\" src/",
       "presentation": {
@@ -51,6 +62,12 @@
               "message": 5
           }
       }
-    }
+    },
+    {
+      "label": "Lint utdi_ra_pha",
+      "type": "shell",
+      "command": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --rm ra_pha npm run lint",
+      "problemMatcher": ["$eslint-stylish"]
+    }	  
   ]
 }

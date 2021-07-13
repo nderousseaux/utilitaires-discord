@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Start debug",
+            "name": "Start debug utdi_server",
             "type": "python",
             "request": "attach",
             "connect": {
@@ -15,5 +15,18 @@
                 }
             ],
         },
+        {
+            "name": "Start debug utdi_ra_pha",
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}/ra_pha",
+            "port": 9229,
+            "remoteRoot": "/usr/src/app",
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        }
+
     ],
 }
