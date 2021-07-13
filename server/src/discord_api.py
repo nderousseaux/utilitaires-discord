@@ -5,7 +5,7 @@ import requests
 BASE_URL = ''
 HEADERS = {}
 
-def init(base_url):
+def init_discord(base_url):
     """Init base url of discord api"""
 
     global BASE_URL

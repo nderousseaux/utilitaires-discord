@@ -1,0 +1,3 @@
+[submodule "random_phrases"]
+	path = random_phrases
+	url = git@gitlab.com:scripts-utilitaires/random_phrases.git
