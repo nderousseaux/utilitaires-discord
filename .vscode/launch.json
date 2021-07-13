@@ -18,7 +18,7 @@
         {
             "name": "Start debug utdi_ra_pha",
             "address": "localhost",
-            "localRoot": "${workspaceFolder}/ra_pha",
+            "localRoot": "${workspaceFolder}/random_phrases",
             "port": 9229,
             "remoteRoot": "/usr/src/app",
             "request": "attach",

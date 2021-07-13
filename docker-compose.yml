@@ -15,9 +15,9 @@ services:
     container_name: utdi_ra_pha
     image: utdi_ra_pha_base
     volumes: 
-      - ./ra_pha:/usr/src/app
+      - ./random_phrases:/usr/src/app
     build:
-      context: ./ra_pha/
+      context: ./random_phrases/
       target: base
     ports:
       - 3000:3000
