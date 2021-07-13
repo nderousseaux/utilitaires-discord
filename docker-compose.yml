@@ -10,3 +10,15 @@ services:
     volumes:
       - ./server:/usr/src/app
     command: ["python", "src/main.py"]
+    env_file: .env
+  ra_pha:
+    container_name: utdi_ra_pha
+    image: utdi_ra_pha_base
+    volumes: 
+      - ./random_phrases:/usr/src/app
+    build:
+      context: ./random_phrases/
+      target: base
+    ports:
+      - 3000:3000
+    command: ["npm", "start"]

@@ -7,5 +7,12 @@ services:
       target: production
     command: ["python", "src/main.py"]
     restart: always
-
+  ra_pha:
+    image: utdi_ra_pha_prod
+    build:
+      target: production
+    environment:
+      NODE_ENV: production
+    command: ["npm", "run", "start"]
+    restart: always
 

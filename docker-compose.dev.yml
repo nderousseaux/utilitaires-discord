@@ -9,3 +9,12 @@ services:
       - 5678:5678
     command: ["sh", "-c", "python -m debugpy --wait-for-client --listen 0.0.0.0:5678 src/main.py"]
     restart: "always"
+  ra_pha:
+    image: utdi_ra_pha_dev
+    build:
+      target: dev
+    environment:
+      NODE_ENV: development
+    ports:
+      - 9229:9229
+    command: ["npm", "run", "debug"]
