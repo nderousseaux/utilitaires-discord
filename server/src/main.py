@@ -1,6 +1,7 @@
 """Entry point of application"""
 
 from time import sleep
+from datetime import datetime, timedelta
 
 from utils import get_env_var, get_time_to_wait
 from discord_api import init_discord, set_token, update_group_name
@@ -29,6 +30,22 @@ if __name__ == "__main__":
 
         update_group_name(discord['id_group'], newName)
 
-        print("Update group n" + discord['id_group'] + " with the new name : " + newName)
+        now = datetime.now()
+        
+        wait = get_time_to_wait(timeout)
 
-        sleep(get_time_to_wait(timeout))
+
+        #On affiche les logs
+        print("\n")
+        print(
+            now.strftime("%d/%m/%Y %H:%M:%S"),
+            ": Group n°", discord['id_group']
+        )
+        print("| New name : ", newName)
+        print("| Wait for " + str(wait) + " seconds")
+        print(
+            "| Next update at ",
+            (now + timedelta(seconds=wait)).strftime("%d/%m/%Y %H:%M:%S")
+        )
+
+        sleep(wait)
