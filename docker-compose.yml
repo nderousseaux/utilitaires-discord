@@ -11,6 +11,8 @@ services:
       - ./server:/usr/src/app
     command: ["python", "src/main.py"]
     env_file: .env
+    depends_on:
+      - ra_pha
   ra_pha:
     container_name: utdi_ra_pha
     image: utdi_ra_pha_base
